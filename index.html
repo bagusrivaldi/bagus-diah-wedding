@@ -714,7 +714,7 @@ body {
 
   /* animation:fadeGuest 1.2s ease; */
 
-  margin-top:180px;
+  margin-top:240px;
 }
 }
 
@@ -739,7 +739,7 @@ body {
 
   /* animation:fadeGuest 1.2s ease; */
 
-  margin-top:240px;
+  margin-top:180px;
   padding-bottom: 20px;
 }  
 
@@ -1344,6 +1344,82 @@ input[type="radio"]{
     width: 15px;
     height: 15px;
   }
+}
+
+/* ===== FIX COVER UNTUK HP KECIL ===== */
+
+/* pakai dvh supaya address bar HP ikut dihitung */
+.desktop-layout,
+.right-panel,
+.left-panel {
+  height: 100vh;
+  height: 100dvh;
+}
+
+#coverScreen,
+.cover-image {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+@media (max-width: 768px) {
+  .cover-image {
+    height: 100dvh;
+  }
+}
+
+/* susunan vertikal: atas - tengah (fleksibel) - bawah (tombol selalu terlihat) */
+.cover-inner {
+  transform: none !important;
+  justify-content: space-between !important;
+  padding:
+    calc(env(safe-area-inset-top) + clamp(12px, 4dvh, 40px))
+    20px
+    calc(env(safe-area-inset-bottom) + clamp(12px, 3dvh, 30px)) !important;
+}
+
+.cover-top {
+  margin-top: 0 !important;
+  flex-shrink: 0;
+}
+
+/* ukuran nama ikut tinggi layar */
+#coverGroom,
+#coverBride {
+  font-size: clamp(2.2rem, 7dvh, 3.5rem) !important;
+  margin-bottom: 0 !important;
+}
+
+/* bagian tengah mengisi sisa ruang, tidak pakai margin-top angka tetap */
+#guestWrapper {
+  margin-top: 0 !important;
+  padding-bottom: 0 !important;
+  flex: 1 1 auto;
+  min-height: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-card {
+  padding: 10px 20px;
+}
+
+#guestName {
+  font-size: clamp(1.3rem, 4.5dvh, 2rem) !important;
+  line-height: 1.3 !important;
+  word-break: break-word;
+}
+
+/* tombol tidak boleh terpotong */
+.cover-bottom {
+  flex-shrink: 0;
+  padding-bottom: 0 !important;
+}
+
+/* layar sangat pendek (HP kecil / landscape) */
+@media (max-height: 640px) {
+  .hero-card > p.italic { display: none; }   /* sembunyikan catatan "mohon maaf..." */
+  .btn-open { padding: 10px 36px; margin-top: 8px !important; }
 }
   </style>
  </head>
@@ -2191,7 +2267,7 @@ function renderWishesGallery() {
   if (guest) {
     const cleanName = decodeURIComponent(guest.replace(/\+/g, ' '));
 
-    document.getElementById('guestWrapper').style.display = 'block';
+    document.getElementById('guestWrapper').style.display = 'flex';
     document.getElementById('guestName').textContent = cleanName;
   }
 }
