@@ -1470,6 +1470,20 @@ input[type="radio"]{
     font-size: clamp(1.3rem, 3.5dvh, 1.8rem) !important;
   }
 }
+/* ===== TURUNKAN TEKS COVER ===== */
+:root {
+  --cover-turun: 20dvh;      /* UBAH ANGKA INI untuk semua layar normal */
+}
+
+@media (max-height: 700px) {
+  :root {
+    --cover-turun: 3dvh;    /* khusus HP layar pendek */
+  }
+}
+
+.cover-top {
+  margin-top: var(--cover-turun) !important;
+}
   </style>
  </head>
   <body class="h-full" style="margin:0;padding:0;">
