@@ -1421,6 +1421,55 @@ input[type="radio"]{
   .hero-card > p.italic { display: none; }   /* sembunyikan catatan "mohon maaf..." */
   .btn-open { padding: 10px 36px; margin-top: 8px !important; }
 }
+
+/* ===== FIX COVER: DESKTOP + HP BESAR ===== */
+
+/* 1. Cover dikunci setinggi layar (tidak lagi mengikuti tinggi gambar) */
+#coverScreen {
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  overflow: hidden;
+}
+
+/* 2. Gambar jadi background: mengisi cover, tidak menentukan tinggi */
+#coverScreen .cover-image {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  object-fit: cover;
+}
+
+/* desktop/tablet: fokus ke bagian bawah gambar (rumah & jalan) */
+@media (min-width: 769px) {
+  #coverScreen .cover-image {
+    object-position: center bottom;
+  }
+}
+
+/* 3. Kartu tamu menempel di atas tombol, bukan di tengah */
+#guestWrapper {
+  align-items: flex-end !important;
+  justify-content: center;
+  padding-bottom: 14px !important;   /* jarak kartu ke tombol, ubah sesuai selera */
+}
+
+/* pengaman: kalau JS masih memakai display:block, tetap jadi flex */
+#guestWrapper[style*="block"] {
+  display: flex !important;
+}
+
+/* 4. Desktop: kartu sedikit lebih ringkas */
+@media (min-width: 1024px) {
+  .hero-card {
+    width: min(88%, 380px);
+  }
+  #guestName {
+    font-size: clamp(1.3rem, 3.5dvh, 1.8rem) !important;
+  }
+}
   </style>
  </head>
   <body class="h-full" style="margin:0;padding:0;">
