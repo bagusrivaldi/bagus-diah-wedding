@@ -356,10 +356,10 @@ body {
   }
 }
 #guestWrapper {
-  animation: fadeGuest 1.2s ease forwards;
+  /* animation: fadeGuest 1.2s ease forwards; */
 }
 
-@keyframes fadeGuest {
+/* @keyframes fadeGuest {
   from {
     opacity: 0;
     transform: translateY(180px);
@@ -369,7 +369,7 @@ body {
     opacity: 1;
     transform: translateY(200px);
   }
-}
+} */
 
 .hero-card{
   display:flex;
@@ -386,9 +386,6 @@ body {
   margin:0 auto;
 
   border-radius:32px;
-
-  backdrop-filter:blur(1px);
-  -webkit-backdrop-filter:blur(1px);
 
   background:rgba(255,255,255,255);
 
@@ -451,6 +448,83 @@ body {
   align-items: center;
   text-align: center;
 
+}
+
+/* SLIDER FOTO */
+.profile-slider {
+  position: relative;
+  width: 320px;
+  height: 420px;
+  max-width: 100%;
+  margin-bottom: 20px;
+
+  border-radius: 28px;
+  overflow: hidden;
+
+  border: 2px solid rgba(157,90,85,0.25);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+
+  transition: transform 0.4s ease;
+
+  /* biar scroll vertikal halaman tetap jalan, swipe horizontal dipakai slider */
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+}
+
+.profile-slider:hover {
+  transform: scale(1.03);
+}
+
+.profile-slider.dragging {
+  cursor: grabbing;
+}
+
+.slider-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+.slider-track.no-anim {
+  transition: none;
+}
+
+.profile-slider .slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+/* DOTS */
+.slider-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+
+.slider-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.slider-dots span.active {
+  background: #fff;
+  width: 18px;
+  border-radius: 10px;
 }
 
 /* FOTO DI ATAS */
@@ -584,7 +658,7 @@ body {
   margin-bottom: -100vh;       /* supaya tidak menambah tinggi konten */
   margin-bottom: -100dvh;
 
-  background: url("cover-java13--scaled.jpg") center top / cover no-repeat;
+  background: url("background.webp") center top / cover no-repeat;
 
   z-index: -1;
   pointer-events: none;
@@ -609,7 +683,7 @@ body {
   display:flex;
   justify-content:center;
 
-  animation:fadeGuest 1.2s ease;
+  /* animation:fadeGuest 1.2s ease; */
 
   margin-top:200px;
 }
@@ -638,7 +712,7 @@ body {
   display:flex;
   justify-content:center;
 
-  animation:fadeGuest 1.2s ease;
+  /* animation:fadeGuest 1.2s ease; */
 
   margin-top:180px;
 }
@@ -663,7 +737,7 @@ body {
   display:flex;
   justify-content:center;
 
-  animation:fadeGuest 1.2s ease;
+  /* animation:fadeGuest 1.2s ease; */
 
   margin-top:240px;
   padding-bottom: 20px;
@@ -680,7 +754,7 @@ body{
 @media (max-width:768px){
 
   .cover-image{
-    content:url('cover-mobile.jpg');
+    content:url('background.webp');
   }
 
 }
@@ -742,7 +816,6 @@ body{
     border:1px solid var(--border-color);
     border-radius:24px;
     padding:32px;
-    backdrop-filter:blur(18px);
     box-shadow:
         0 15px 45px rgba(0,0,0,.25),
         inset 0 1px rgba(255,255,255,.08);
@@ -1135,9 +1208,6 @@ input[type="radio"]{
 
   text-align: center;
 
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
@@ -1182,6 +1252,98 @@ input[type="radio"]{
     font-size: 0.5rem;
   }
 
+  /* GALERI UCAPAN SCROLLABLE */
+.wishes-scroll {
+  max-height: 480px;          /* atur tinggi kotak sesuai selera */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 8px 4px 4px;
+
+  border-radius: 18px;
+  border: 1px solid var(--border-color);
+  background: rgba(255,255,255,0.35);
+
+  /* biar scroll di dalam kotak tidak "menular" ke halaman */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+
+  /* scrollbar tipis, warna senada */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) transparent;
+}
+
+.wishes-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.wishes-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.wishes-scroll::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+  .wishes-scroll {
+    max-height: 500px;
+  }
+}
+
+}
+
+/* TOMBOL GOOGLE MAPS */
+.maps-btn {
+  position: absolute;
+  left: 50%;
+  top: 81%;                 /* tepat di bawah alamat; naikkan/turunkan sesuai selera */
+  transform: translateX(-50%);
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 22px;
+  border-radius: 999px;
+
+  background: var(--accent-color);
+  color: #fff7f2;
+  border: 1px solid rgba(255,255,255,0.35);
+  box-shadow: 0 8px 22px rgba(157,90,85,0.35);
+
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.maps-btn:hover {
+  background: #874944;
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 12px 28px rgba(157,90,85,0.45);
+}
+
+.maps-btn i,
+.maps-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 768px) {
+  .maps-btn {
+    padding: 8px 16px;
+    font-size: 0.75rem;
+    gap: 6px;
+  }
+  .maps-btn i,
+  .maps-btn svg {
+    width: 15px;
+    height: 15px;
+  }
 }
   </style>
  </head>
@@ -1233,7 +1395,7 @@ input[type="radio"]{
 
   <!-- Background -->
   <img
-    src="cover-mobile.jpg"
+    src="background.webp"
     alt=""
     class="cover-image"
   >
@@ -1365,7 +1527,7 @@ input[type="radio"]{
 
            letter-spacing:0.08em;
         ">
-          #DIamondWithUS
+          #DIAmondWithUS
         </p>
 
       </div>
@@ -1385,7 +1547,7 @@ input[type="radio"]{
     <section class="section-quote fade-in intro-animate">
 
   <img
-    src="assets/quotes-arrumm.png"
+    src="assets/quotes-arrumm.webp"
     alt=""
     loading="lazy"
   >
@@ -1426,7 +1588,15 @@ input[type="radio"]{
       <section class="section-groom fade-in">
   <div class="profile-card vertical">
 
-    <img src="assets/1778244613010.JPG" class="profile-img" loading="lazy" />
+    <div class="profile-slider" id="groomSlider">
+      <div class="slider-track">
+        <img src="assets/bagus-color-1.JPG" class="slide" alt="bagus 1" draggable="false" />
+        <img src="assets/bagus-color-2.JPG" class="slide" alt="bagus 2" draggable="false" />
+        <img src="assets/bagus-color-3.JPG" class="slide" alt="bagus 3" draggable="false" />
+        <img src="assets/bagus-color-2.JPG" class="slide" alt="bagus 4" draggable="false" />
+      </div>
+      <div class="slider-dots"></div>
+    </div>
 
    <div class="profile-info">
   <p class="role adaptive-text">Mempelai Pria</p>
@@ -1446,7 +1616,18 @@ input[type="radio"]{
       <section class="section-bride fade-in">
   <div class="profile-card vertical">
 
-    <img src="assets/1778244612915.JPG" class="profile-img" loading="lazy" />
+    <!-- SLIDER FOTO -->
+    <div class="profile-slider" id="brideSlider">
+      <div class="slider-track">
+        <img src="assets/diah-color-1.JPG" class="slide" alt="Diah 1" draggable="false" />
+        <img src="assets/diah-color-2.JPG" class="slide" alt="Diah 2" draggable="false" />
+        <img src="assets/diah-color-3.JPG" class="slide" alt="Diah 3" draggable="false" />
+        <img src="assets/diah-color-4.JPG" class="slide" alt="Diah 4" draggable="false" />
+      </div>
+      <div class="slider-dots"></div>
+    </div>
+
+    <!-- <img src="assets/1778244612915.JPG" class="profile-img" loading="lazy" /> -->
 
     <div class="profile-info">
   <p class="role adaptive-text">Mempelai Wanita</p>
@@ -1466,7 +1647,7 @@ input[type="radio"]{
     <section class="section-countdown fade-in">
 
     <img
-    src="assets/img-countdown.png"
+    src="assets/img-countdown.webp"
     alt=""
     loading="lazy"
   >
@@ -1518,10 +1699,21 @@ input[type="radio"]{
 <section class="section-save-the-date fade-in">
 
   <img
-    src="assets/date.png"
+    src="assets/date.webp"
     alt=""
     loading="lazy"
   >
+
+  <!-- TOMBOL GOOGLE MAPS -->
+  <a
+    href="https://maps.app.goo.gl/ttzTuchiaYU1Euve7"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="maps-btn font-body"
+  >
+    <i data-lucide="map-pin"></i>
+    <p class="font-body">Google Maps</p>
+  </a>
 </section>
     
     <!-- GALLERY SECTION -->
@@ -1530,18 +1722,15 @@ input[type="radio"]{
       <p class="font-body adaptive-text uppercase tracking-[0.3em] mb-2 text-center" style="font-size:1rem;color:var(--secondary-color);">Momen Berharga</p>
       <div class="golden-divider mb-8"></div>
       <div id="gallery" class="instagram-feed">
-  <img src="assets/foto-momen-1.jpg" alt="Momen 1" loading="lazy">
-  <img src="assets/foto-momen-2.jpg" alt="Momen 2" loading="lazy">
-  <img src="assets/foto-momen-3.jpg" alt="Momen 3" loading="lazy">
-  <img src="assets/foto-momen-4.jpg" alt="Momen 4" loading="lazy">
-  <img src="assets/foto-momen-5.jpg" alt="Momen 5" loading="lazy">
-  <img src="assets/foto-momen-6.jpg" alt="Momen 6" loading="lazy">
-  <img src="assets/foto-momen-7.jpg" alt="Momen 7" loading="lazy">
-  <img src="assets/foto-momen-8.jpg" alt="Momen 8" loading="lazy">
-  <img src="assets/foto-momen-9.jpg" alt="Momen 9" loading="lazy">
-  <img src="assets/foto-momen-7.jpg" alt="Momen 7" loading="lazy">
-  <img src="assets/foto-momen-8.jpg" alt="Momen 8" loading="lazy">
-  <img src="assets/foto-momen-9.jpg" alt="Momen 9" loading="lazy">
+  <img src="assets/foto-momen-1.webp" alt="Momen 1" loading="lazy">
+  <img src="assets/foto-momen-2.webp" alt="Momen 2" loading="lazy">
+  <img src="assets/foto-momen-3.webp" alt="Momen 3" loading="lazy">
+  <img src="assets/foto-momen-4.webp" alt="Momen 4" loading="lazy">
+  <img src="assets/foto-momen-5.webp" alt="Momen 5" loading="lazy">
+  <img src="assets/foto-momen-6.webp" alt="Momen 6" loading="lazy">
+  <img src="assets/foto-momen-7.webp" alt="Momen 7" loading="lazy">
+  <img src="assets/foto-momen-8.webp" alt="Momen 8" loading="lazy">
+  <img src="assets/foto-momen-9.webp" alt="Momen 9" loading="lazy">
 </div>
      </div>
     </section><!-- TIMELINE SECTION -->
@@ -1570,7 +1759,7 @@ input[type="radio"]{
          <div>
           <p class="font-heading" style="color:var(--accent-color);font-size:1rem;">Menjalani Bersama</p>
           <p class="font-body mt-1" style="color:var(--secondary-color);font-size:0.9rem;">2023 – 2026</p>
-          <p class="font-body mt-2" style="color:var(--secondary-color);font-size:0.95rem;">Dari sekadar mengenal, tumbuh menjadi saling memahami, menemani hari-hari, dan belajar untuk terus memilih satu sama lain.</p>
+          <p class="font-body mt-2" style="color:var(--secondary-color);font-size:0.95rem;">Dari sekadar mengenal, tumbuh menjadi saling memahami, menemani hari-hari, dan belajar untuk terus memahami satu sama lain.</p>
          </div>
         </div>
        </div>
@@ -1582,7 +1771,7 @@ input[type="radio"]{
          <div>
           <p class="font-heading" style="color:var(--accent-color);font-size:1rem;">Sebuah Kesungguhan</p>
           <p class="font-body mt-1" style="color:var(--secondary-color);font-size:0.9rem;">2026</p>
-          <p class="font-body mt-2" style="color:var(--secondary-color);font-size:0.95rem;">Di antara banyak hal yang telah kami lalui, kami akhirnya memilih untuk melangkah lebih jauh—bukan hanya bersama hari ini, tetapi untuk hari-hari yang akan datang.</p>
+          <p class="font-body mt-2" style="color:var(--secondary-color);font-size:0.95rem;">Di antara banyak hal yang telah kami lalui, kami akhirnya memilih untuk melangkah lebih jauh. Bukan hanya bersama hari ini, tetapi untuk hari-hari yang akan datang.</p>
          </div>
         </div>
        </div>
@@ -1617,14 +1806,15 @@ input[type="radio"]{
      <div style="max-width:800px;margin:0 auto;">
       <p class="font-body adaptive-text uppercase tracking-[0.3em] mb-2 text-center" style="font-size:1rem;color:var(--secondary-color);">Galeri Ucapan</p>
       <div class="golden-divider mb-8"></div>
-      <div id="wishesGallery" class="grid gap-4 adaptive-text" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));">
+      <div class="wishes-scroll"><div id="wishesGallery" class="grid gap-4" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));">
+      </div>
       </div>
       <p id="emptyGallery" class="font-body text-center adaptive-text" style="color:var(--secondary-color);font-size:0.9rem;margin-top:2rem;">Belum ada ucapan. Jadilah yang pertama mengirim ucapan! 💝</p>
      </div>
     </section>
     
 <div class="rsvp-ornament-top">
-    <img src="border/batik-border.png" alt="" loading="lazy">
+    <img src="border/batik-border.webp" alt="" loading="lazy">
 </div>
 
 <section class="py-16 px-6 fade-in">
@@ -1690,13 +1880,13 @@ input[type="radio"]{
    <div class="gunungan-wrapper">
 
     <img
-        src="border/gunungan-left.png"
+        src="border/gunungan-left.webp"
         class="gunungan gunungan-left"
         alt=""
         loading="lazy">
 
     <img
-        src="border/gunungan-right.png"
+        src="border/gunungan-right.webp"
         class="gunungan gunungan-right"
         alt=""
         loading="lazy">
@@ -1704,7 +1894,7 @@ input[type="radio"]{
 </div>
 
     <img
-        src="border/batik-border.png"
+        src="border/batik-border.webp"
         class="batik-bottom"
         alt=""
         loading="lazy">
@@ -1753,7 +1943,7 @@ input[type="radio"]{
      </div>
      </div>
     </section>
-    <footer class="py-8 text-center font-body" style="font-size:0.75rem;color:var(--secondary-color);border-top:1px solid var(--border-color);">
+    <footer class="py-8 text-center font-body" style="font-size:0.75rem;color:var(--accent-color);border-top:1px solid var(--border-color);">
      Made with ❤️
     </footer>
    </div>
@@ -1761,13 +1951,13 @@ input[type="radio"]{
   <div class="audio-control" id="audioControl" onclick="toggleAudio()" title="Putar/Hentikan Musik">
    <i data-lucide="music"></i>
   </div>
-  <audio id="bgAudio" preload="auto"></audio>
+  <audio id="bgAudio" preload="auto" loop></audio>
 
   </section>
   <script>
   const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbwbFGZlSwEuxl_UPyq6YkV5VgV1wcXg8n2TZJQTiPTt9oW2qX8mv2Lp4dVYXKFF1jMJ/exec";
 let allWishes = [];
-let visibleWishCount = 6;
+// let visibleWishCount = 6;
 
   async function sendWish() {
   const name = document.getElementById('wishName').value.trim();
@@ -1848,10 +2038,10 @@ function renderWishesGallery() {
   }
 
   empty.style.display = 'none';
-  const visibleWishes = allWishes.slice(0, visibleWishCount);
+  // const visibleWishes = allWishes.slice(0, visibleWishCount);
 
 
-  visibleWishes.forEach(wish => {
+  allWishes.forEach(wish => {
     const card = document.createElement('div');
     card.className = 'section-card';
     card.style.cssText = `
@@ -1863,10 +2053,10 @@ function renderWishesGallery() {
 
     card.innerHTML = `
       <p class="font-heading adaptive-text" style="color:var(--accent-color);font-size:1rem;">
-        ${wish.name}
+        ${escapeHTML(wish.name)}
       </p>
         <p class="font-body mt-2 adaptive-text" style="color:#8b4e4a;line-height:1.6;font-size:0.9rem;">
-        ${wish.message}
+        ${escapeHTML(wish.message)}
       </p>
       <p class="font-body mt-3 adaptive-text" style="color:var(--secondary-color);font-size:0.75rem;">
         ${new Date(wish.createdAt).toLocaleDateString('id-ID')}
@@ -1875,32 +2065,38 @@ function renderWishesGallery() {
 
     gallery.appendChild(card);
   });
-  if (allWishes.length > visibleWishCount) {
-  const loadMoreBtn = document.createElement('button');
-  loadMoreBtn.textContent = 'TAMPILKAN UCAPAN LAINNYA';
-  loadMoreBtn.style.cssText = `
-  grid-column: 1 / -1;
-  justify-self: center;
-  margin: 32px auto 0;
-  display: block;
-  padding: 12px 42px;
-  border-radius: 999px;
-  border: 1px solid #9d5a55;
-  background: transparent;
-  color: #9d5a55;
-  font-family: 'Cormorant Garamond', serif;
-  letter-spacing: 0.15em;
-  cursor: pointer;
-`;
+//   if (allWishes.length > visibleWishCount) {
+//   const loadMoreBtn = document.createElement('button');
+//   loadMoreBtn.textContent = 'TAMPILKAN UCAPAN LAINNYA';
+//   loadMoreBtn.style.cssText = `
+//   grid-column: 1 / -1;
+//   justify-self: center;
+//   margin: 32px auto 0;
+//   display: block;
+//   padding: 12px 42px;
+//   border-radius: 999px;
+//   border: 1px solid #9d5a55;
+//   background: transparent;
+//   color: #9d5a55;
+//   font-family: 'Cormorant Garamond', serif;
+//   letter-spacing: 0.15em;
+//   cursor: pointer;
+// `;
 
-  loadMoreBtn.onclick = () => {
-    visibleWishCount += 6;
-    renderWishesGallery();
-  };
+//   loadMoreBtn.onclick = () => {
+//     visibleWishCount += 6;
+//     renderWishesGallery();
+//   };
 
-  gallery.appendChild(loadMoreBtn);
+//   gallery.appendChild(loadMoreBtn);
+// }
 }
-}
+
+  function escapeHTML(str) {
+    return String(str).replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
 
   function copyAccount() {
     const accountNum = document.getElementById('accountNumber').textContent;
@@ -2048,7 +2244,7 @@ function toggleAudio() {
     
     if (!audio.src || audio.src === window.location.href) {
         // Jika audio belum punya sumber, set dulu
-        audio.src = 'https://dn720901.ca.archive.org/0/items/nadhif-basalamah-bergema-sampai-selamanya-stripped-version-official-audio_202601/Nadhif%20Basalamah%20-%20bergema%20sampai%20selamanya%20%28Stripped%20Version%20-%20Official%20Audio%29.mp3';
+        audio.src = 'https://ia601409.us.archive.org/29/items/kusuma-wijaya-pawestri-official-music-video_202605/KUSUMA%20WIJAYA%20-%20PAWESTRI%20-%20OFFICIAL%20MUSIC%20VIDEO.mp3';
         audio.loop = true;
         audio.load();
     }
@@ -2188,103 +2384,108 @@ function closeLightbox() {
   document.getElementById('photoLightbox').classList.remove('active');
 }
 
-function initAdaptiveText() {
-  const panel = document.querySelector('.right-panel');
-  const main = document.getElementById('mainContent');
-  const els = document.querySelectorAll('.adaptive-text');
+// function initAdaptiveText() {
+//   const panel = document.querySelector('.right-panel');
+//   const main = document.getElementById('mainContent');
+//   const els = document.querySelectorAll('.adaptive-text');
 
-  const SCALE = 0.15; // sampling di resolusi kecil supaya ringan
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+//   const SCALE = 0.15; // sampling di resolusi kecil supaya ringan
+//   const canvas = document.createElement('canvas');
+//   const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-  const img = new Image();
-  img.src = 'cover-java13--scaled.jpg'; // sama dengan background #mainContent::before
+//   const img = new Image();
+//   img.src = 'cover-desktop.jpg'; // sama dengan background #mainContent::before
 
-  let pixelData = null; // cache hasil getImageData, dibaca sekali saja per resize
+//   let pixelData = null; // cache hasil getImageData, dibaca sekali saja per resize
 
-  // Gambar ulang background di canvas dengan aturan yang sama: cover + center top
-  function drawBg() {
-    canvas.width = Math.max(1, Math.round(main.getBoundingClientRect().width * SCALE));
-    canvas.height = Math.max(1, Math.round(window.innerHeight * SCALE));
+//   // Gambar ulang background di canvas dengan aturan yang sama: cover + center top
+//   function drawBg() {
+//     canvas.width = Math.max(1, Math.round(main.getBoundingClientRect().width * SCALE));
+//     canvas.height = Math.max(1, Math.round(window.innerHeight * SCALE));
 
-    const s = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
-    const dw = img.naturalWidth * s;
-    const dh = img.naturalHeight * s;
+//     const s = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+//     const dw = img.naturalWidth * s;
+//     const dh = img.naturalHeight * s;
 
-    ctx.drawImage(img, (canvas.width - dw) / 2, 0, dw, dh);
+//     ctx.drawImage(img, (canvas.width - dw) / 2, 0, dw, dh);
 
-    try {
-      // getImageData dipanggil SEKALI di sini (bukan per elemen di setiap scroll)
-      pixelData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    } catch (e) {
-      pixelData = null; // mis. dibuka via file:// (canvas diblokir)
-    }
-  }
+//     try {
+//       // getImageData dipanggil SEKALI di sini (bukan per elemen di setiap scroll)
+//       pixelData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+//     } catch (e) {
+//       pixelData = null; // mis. dibuka via file:// (canvas diblokir)
+//     }
+//   }
 
-  // Baca luminance langsung dari buffer yang sudah di-cache, tanpa panggil getImageData lagi
-  function sampleLuminance(x, y, w, h) {
-    if (!pixelData) return 1; // gagal baca -> anggap terang (fallback aman)
+//   // Baca luminance langsung dari buffer yang sudah di-cache, tanpa panggil getImageData lagi
+//   function sampleLuminance(x, y, w, h) {
+//     if (!pixelData) return 1; // gagal baca -> anggap terang (fallback aman)
 
-    const { data, width, height } = pixelData;
-    x = Math.max(0, Math.min(width - 1, x));
-    y = Math.max(0, Math.min(height - 1, y));
-    w = Math.max(1, Math.min(width - x, w));
-    h = Math.max(1, Math.min(height - y, h));
+//     const { data, width, height } = pixelData;
+//     x = Math.max(0, Math.min(width - 1, x));
+//     y = Math.max(0, Math.min(height - 1, y));
+//     w = Math.max(1, Math.min(width - x, w));
+//     h = Math.max(1, Math.min(height - y, h));
 
-    const stepX = Math.max(1, Math.floor(w / 6));
-    const stepY = Math.max(1, Math.floor(h / 6));
+//     const stepX = Math.max(1, Math.floor(w / 6));
+//     const stepY = Math.max(1, Math.floor(h / 6));
 
-    let sum = 0, count = 0;
-    for (let yy = y; yy < y + h; yy += stepY) {
-      for (let xx = x; xx < x + w; xx += stepX) {
-        const i = (yy * width + xx) * 4;
-        sum += 0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2];
-        count++;
-      }
-    }
-    return count ? sum / count / 255 : 1;
-  }
+//     let sum = 0, count = 0;
+//     for (let yy = y; yy < y + h; yy += stepY) {
+//       for (let xx = x; xx < x + w; xx += stepX) {
+//         const i = (yy * width + xx) * 4;
+//         sum += 0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2];
+//         count++;
+//       }
+//     }
+//     return count ? sum / count / 255 : 1;
+//   }
 
-  function update() {
-    if (!pixelData) return;
+//   function update() {
+//   if (!pixelData) return;
 
-    const mainLeft = main.getBoundingClientRect().left;
-    const panelTop = panel.getBoundingClientRect().top;
+//   const mainLeft = main.getBoundingClientRect().left;
+//   const panelTop = panel.getBoundingClientRect().top;
+//   const vh = window.innerHeight;
+//   const changes = [];
 
-    els.forEach(el => {
-      const r = el.getBoundingClientRect();
+//   // 1) BACA semua dulu
+//   els.forEach(el => {
+//     const r = el.getBoundingClientRect();
+//     if (r.bottom < 0 || r.top > vh) return;
 
-      // lewati elemen yang sedang di luar layar, tidak perlu dihitung
-      if (r.bottom < 0 || r.top > window.innerHeight) return;
+//     const w = Math.round(r.width * SCALE);
+//     const h = Math.round(r.height * SCALE);
+//     if (w <= 0 || h <= 0) return;
 
-      const x = Math.round((r.left - mainLeft) * SCALE);
-      const y = Math.round((r.top - panelTop) * SCALE);
-      const w = Math.round(r.width * SCALE);
-      const h = Math.round(r.height * SCALE);
+//     const x = Math.round((r.left - mainLeft) * SCALE);
+//     const y = Math.round((r.top - panelTop) * SCALE);
+//     const isDark = sampleLuminance(x, y, w, h) < 0.5;
 
-      if (w <= 0 || h <= 0) return;
+//     if (el._isDark !== isDark) changes.push([el, isDark]);
+//   });
 
-      const luminance = sampleLuminance(x, y, w, h);
-      const isDark = luminance < 0.5;
+//   // 2) TULIS belakangan, hanya yang berubah
+//   changes.forEach(([el, isDark]) => {
+//     el._isDark = isDark;
+//     el.style.setProperty('--at-color',   isDark ? '#fff7f0' : '#6f4a47');
+//     el.style.setProperty('--at-outline', isDark ? '#3a1f1d' : '#fff7f0');
+//   });
+// }
 
-      el.style.setProperty('--at-color',   isDark ? '#fff7f0' : '#6f4a47');
-      el.style.setProperty('--at-outline', isDark ? '#3a1f1d' : '#fff7f0');
-    });
-  }
+//   let ticking = false;
+//   panel.addEventListener('scroll', () => {
+//     if (ticking) return;
+//     ticking = true;
+//     requestAnimationFrame(() => { update(); ticking = false; });
+//   });
 
-  let ticking = false;
-  panel.addEventListener('scroll', () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => { update(); ticking = false; });
-  });
+//   window.addEventListener('resize', () => { drawBg(); update(); });
+//   document.getElementById('openInvitation').addEventListener('click', () => setTimeout(() => { drawBg(); update(); }, 700));
 
-  window.addEventListener('resize', () => { drawBg(); update(); });
-  document.getElementById('openInvitation').addEventListener('click', () => setTimeout(() => { drawBg(); update(); }, 700));
-
-  img.onload = () => { drawBg(); update(); };
-}
-  initAdaptiveText();
+//   img.onload = () => { drawBg(); update(); };
+// }
+//   initAdaptiveText();
 
 </script>  
 <div id="photoLightbox" class="photo-lightbox" onclick="closeLightbox()">
@@ -2305,5 +2506,133 @@ function initAdaptiveText() {
     </div>
 
 </div>
+<script>
+function initSlider(sliderId, interval = 3500) {
+  const slider = document.getElementById(sliderId);
+  if (!slider) return;
+
+  const track = slider.querySelector('.slider-track');
+  const originals = Array.from(track.querySelectorAll('.slide'));
+  const total = originals.length;
+  const dotsWrap = slider.querySelector('.slider-dots');
+
+  // Clone: [foto terakhir] [foto 1,2,3] [foto pertama]
+  // Pastikan semua foto langsung dimuat (bukan lazy)
+originals.forEach(img => { img.loading = 'eager'; });
+
+if (total > 1) {
+  const firstClone = originals[0].cloneNode(true);
+  const lastClone = originals[total - 1].cloneNode(true);
+  firstClone.loading = 'eager';
+  lastClone.loading = 'eager';
+  firstClone.setAttribute('aria-hidden', 'true');
+  lastClone.setAttribute('aria-hidden', 'true');
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, track.firstChild);
+}
+
+  let pos = total > 1 ? 1 : 0; // posisi di track (termasuk clone)
+  let timer;
+  let startX = 0;
+  let dx = 0;
+  let dragging = false;
+
+  // dots
+  originals.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.addEventListener('click', () => {
+      snapIfClone();
+      pos = i + 1;
+      render();
+      restart();
+    });
+    dotsWrap.appendChild(dot);
+  });
+  const dots = dotsWrap.querySelectorAll('span');
+
+  function realIndex() {
+    return ((pos - 1) % total + total) % total;
+  }
+
+  function render(offsetPx = 0) {
+    track.style.transform = `translateX(calc(${-pos * 100}% + ${offsetPx}px))`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === realIndex()));
+  }
+
+  // kalau sedang di clone, pindah ke foto asli tanpa animasi
+  function snapIfClone() {
+    if (total < 2) return;
+    let changed = false;
+    if (pos === total + 1) { pos = 1; changed = true; }
+    else if (pos === 0) { pos = total; changed = true; }
+    if (changed) {
+      track.classList.add('no-anim');
+      render();
+      void track.offsetWidth; // paksa browser menerapkan posisi baru
+      track.classList.remove('no-anim');
+    }
+  }
+
+  track.addEventListener('transitionend', (e) => {
+    if (e.target === track) snapIfClone();
+  });
+
+  function next() { snapIfClone(); pos += 1; render(); }
+  function prev() { snapIfClone(); pos -= 1; render(); }
+
+  function restart() {
+    clearInterval(timer);
+    if (total > 1) timer = setInterval(next, interval);
+  }
+  function stop() { clearInterval(timer); }
+
+  // SWIPE / DRAG
+  slider.addEventListener('pointerdown', (e) => {
+    snapIfClone();
+    dragging = true;
+    startX = e.clientX;
+    dx = 0;
+    track.classList.add('no-anim');
+    slider.classList.add('dragging');
+    slider.setPointerCapture(e.pointerId);
+    stop();
+  });
+
+  slider.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    dx = e.clientX - startX;
+    render(dx);
+  });
+
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    track.classList.remove('no-anim');
+    slider.classList.remove('dragging');
+
+    const threshold = slider.offsetWidth * 0.2;
+    if (dx < -threshold) next();
+    else if (dx > threshold) prev();
+    else render();
+
+    dx = 0;
+    restart();
+  }
+
+  slider.addEventListener('pointerup', endDrag);
+  slider.addEventListener('pointercancel', endDrag);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else { snapIfClone(); restart(); }
+  });
+
+  render();
+  restart();
+}
+
+initSlider('brideSlider');
+initSlider('groomSlider');
+</script>
       </body>
 </html>
