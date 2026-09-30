@@ -1518,6 +1518,14 @@ input[type="radio"]{
   .profile-slider:hover,
   .instagram-feed img:hover { transform: none; filter: none; }
 }
+
+@media (max-width: 1023px) {
+  /* bayangan blur 50px pada elemen yang berisi animasi itu mahal di GPU HP */
+  .profile-slider { box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+
+  /* efek transisi di foto galeri tidak berguna di layar sentuh */
+  .instagram-feed img { transition: none; }
+}
   </style>
  </head>
   <body class="h-full" style="margin:0;padding:0;">
@@ -2796,13 +2804,20 @@ if (total > 1) {
   slider.addEventListener('pointerup', endDrag);
   slider.addEventListener('pointercancel', endDrag);
 
+    let inView = false;
+
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stop();
-    else { snapIfClone(); restart(); }
+    else { snapIfClone(); if (inView) restart(); }
   });
 
+  // autoplay hanya jalan saat slider terlihat di layar
+  new IntersectionObserver((entries) => {
+    inView = entries[0].isIntersecting;
+    if (inView) restart(); else stop();
+  }, { threshold: 0.3 }).observe(slider);
+
   render();
-  restart();
 }
 
 initSlider('brideSlider');
