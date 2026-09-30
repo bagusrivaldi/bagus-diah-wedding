@@ -1496,9 +1496,6 @@ input[type="radio"]{
   margin-top: var(--cover-turun) !important;
 }
 
-@media (max-width: 1023px) {
-  .shimmer-text, .wedding-divider { animation: none; }
-}
 
 @media (max-width: 1023px) {
   /* fade-in cukup opacity saja, tanpa geser */
@@ -1507,7 +1504,6 @@ input[type="radio"]{
   .fade-in { transition: opacity 0.6s ease; }
 
   /* animasi yang jalan terus */
-  .shimmer-text,
   .wedding-divider { animation: none; }
 
   /* slider tidak perlu layer khusus */
@@ -2298,6 +2294,9 @@ function renderWishesGallery() {
   // hapus cover setelah animasi
   setTimeout(() => {
     cover.style.display = 'none';
+    document.querySelectorAll('.shimmer-text').forEach(el => {
+    el.style.setProperty('animation', 'none', 'important');
+  });
   }, 800);
 
     const rightPanel = document.querySelector('.right-panel');
