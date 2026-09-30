@@ -1,8 +1,16 @@
 <!doctype html>
 <html lang="id" class="h-full">
  <head>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- cover paling penting -->
+  <link rel="preload" as="image" href="background.webp" fetchpriority="high">
+
+  <!-- galeri: cukup 3 foto baris pertama -->
+  <link rel="preload" as="image" href="assets/foto-momen-1.webp">
+  <link rel="preload" as="image" href="assets/foto-momen-2.webp">
+  <link rel="preload" as="image" href="assets/foto-momen-3.webp">
   <title>Undangan Pernikahan</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
@@ -1861,15 +1869,15 @@ input[type="radio"]{
       <p class="font-body adaptive-text uppercase tracking-[0.3em] mb-2 text-center" style="font-size:1rem;color:var(--secondary-color);">Momen Berharga</p>
       <div class="golden-divider mb-8"></div>
       <div id="gallery" class="instagram-feed">
-  <img src="assets/foto-momen-1.webp" alt="Momen 1" >
-  <img src="assets/foto-momen-2.webp" alt="Momen 2" >
-  <img src="assets/foto-momen-3.webp" alt="Momen 3" >
-  <img src="assets/foto-momen-4.webp" alt="Momen 4" >
-  <img src="assets/foto-momen-5.webp" alt="Momen 5" >
-  <img src="assets/foto-momen-6.webp" alt="Momen 6" >
-  <img src="assets/foto-momen-7.webp" alt="Momen 7" >
-  <img src="assets/foto-momen-8.webp" alt="Momen 8" >
-  <img src="assets/foto-momen-9.webp" alt="Momen 9" >
+  <img src="assets/foto-momen-1.webp" alt="Momen 1" width="600" height="600" decoding="async" fetchpriority="high">
+  <img src="assets/foto-momen-2.webp" alt="Momen 2" width="600" height="600" decoding="async" fetchpriority="high">
+  <img src="assets/foto-momen-3.webp" alt="Momen 3" width="600" height="600" decoding="async" fetchpriority="high">
+  <img src="assets/foto-momen-4.webp" alt="Momen 4" width="600" height="600" decoding="async">
+  <img src="assets/foto-momen-5.webp" alt="Momen 5" width="600" height="600" decoding="async">
+  <img src="assets/foto-momen-6.webp" alt="Momen 6" width="600" height="600" decoding="async">
+  <img src="assets/foto-momen-7.webp" alt="Momen 7" width="600" height="600" decoding="async">
+  <img src="assets/foto-momen-8.webp" alt="Momen 8" width="600" height="600" decoding="async">
+  <img src="assets/foto-momen-9.webp" alt="Momen 9" width="600" height="600" decoding="async">
 </div>
      </div>
     </section><!-- TIMELINE SECTION -->
@@ -2782,6 +2790,13 @@ window.addEventListener('load', () => {
   };
   if ('requestIdleCallback' in window) requestIdleCallback(warmUp, { timeout: 3000 });
   else setTimeout(warmUp, 1500);
+});
+
+window.addEventListener('load', () => {
+  const imgs = document.querySelectorAll('#gallery img');
+  imgs.forEach(img => {
+    if (img.decode) img.decode().catch(() => {});
+  });
 });
 </script>
       </body>
